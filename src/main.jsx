@@ -39,6 +39,7 @@ function App() {
       <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-label="主要導覽">
         <button onClick={() => scrollTo('features')}>{t.navFeatures}</button>
         <button onClick={() => scrollTo('privacy')}>{t.navPrivacy}</button>
+        <a href="screenshots.html">Screenshots</a>
         <a href="https://github.com/edward-hsu-1994/ShareGather" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
         <label className="language-picker">
           <span className="sr-only">Language</span>
@@ -66,18 +67,9 @@ function App() {
         <div className="hero-art" aria-label="ShareGather 介面示意圖">
           <div className="sun"></div><div className="dot dot-a"></div><div className="dot dot-b"></div>
           <div className="phone phone-main">
-            <div className="dynamic-island"></div>
-            <div className="screen-content">
-              <p className="screen-heading">今天想保存什麼？</p>
-              <div className="library-card"><span className="card-icon lavender">⌁</span><div><b>所有收藏</b><small>24 個項目</small></div><strong>›</strong></div>
-              <p className="mini-label">RECENTLY SAVED</p>
-              <div className="item-row"><span className="thumbnail coral"></span><div><b>Designing a calmer web</b><small>magazine.design · 2 分鐘前</small></div></div>
-              <div className="item-row"><span className="thumbnail yellow"></span><div><b>週末想做的料理</b><small>一段文字 · 昨天</small></div></div>
-              <div className="item-row"><span className="thumbnail blue"></span><div><b>Somewhere in Kyoto</b><small>一張圖片 · 週一</small></div></div>
-              <div className="tabbar"><span>⌂</span><span>□</span><span>⚙</span></div>
-            </div>
+            <img className="screen-screenshot" src="screenshot-home.png" alt="ShareGather 首頁，今天想保存什麼？" />
           </div>
-          <div className="phone phone-share"><div className="dynamic-island"></div><div className="share-content"><div className="share-preview"></div><b>Save to ShareGather</b><small>儲存到你的收藏</small><div className="share-options"><span>⌁</span><span>Uncategorized</span><b>›</b></div><button>儲存</button></div></div>
+          <div className="phone phone-share"><img className="screen-screenshot" src="screenshot-save.png" alt="Save to ShareGather 分享畫面" /></div>
           <span className="art-note">{t.preview}<br /><b>coming soon</b></span>
         </div>
       </section>
@@ -99,7 +91,7 @@ function App() {
         <div className="ritual-visual">
           <div className="circle-text">MAKE SPACE FOR WHAT MATTERS · </div>
           <div className="note n1">那間想去的書店</div><div className="note n2">一段喜歡的話</div><div className="note n3">週末再讀</div>
-          <div className="ritual-phone"><div className="dynamic-island"></div><div className="ritual-screen"><small>COLLECTION</small><h4>慢慢看</h4><div className="collection-item">☼ <span>夏日的靈感</span></div><div className="collection-item">⌁ <span>值得細讀</span></div><div className="collection-item">✦ <span>旅行筆記</span></div></div></div>
+          <div className="ritual-phone"><img className="screen-screenshot" src="screenshot-category-items.png" alt="ShareGather 收藏分類慢慢看" /></div>
         </div>
         <div className="ritual-copy"><p className="eyebrow">{t.ritualEyebrow}</p><h2>{t.ritualTitle}</h2><p>{t.ritualText}</p><a className="text-link" href="#privacy">{t.privacyLink} <span>↓</span></a></div>
       </section>
