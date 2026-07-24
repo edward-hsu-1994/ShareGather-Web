@@ -3,7 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './styles.css'
 
 const screens = [
-  ['screenshot-home.png', 'Home'], ['screenshot-save.png', 'Save to ShareGather'], ['screenshot-share-to-app.png', 'Share to app'], ['screenshot-save-youtube.png', 'Save YouTube'], ['screenshot-category-items.png', 'Category items'], ['screenshot-item-detail.png', 'Item detail'], ['screenshot-move-items.png', 'Move items'], ['screenshot-category-reorder.png', 'Reorder categories'], ['screenshot-category-context-menu.png', 'Category menu'], ['screenshot-item-context-menu.png', 'Item menu'], ['screenshot-settings.png', 'Settings'],
+  ['screenshot-home.png', 'Home'],
+  ['screenshot-save.png', 'Save item'],
+  ['screenshot-share-to-app.png', 'Share to app'],
+  ['screenshot-choose-category.png', 'Choose a category'],
+  ['screenshot-category-items.png', 'Category items'],
 ]
 const text = { 'zh-Hant': ['產品畫面', '看看 ShareGather 如何幫你收集、整理，再回看每一個值得保留的片刻。', '← 回到首頁'], 'zh-Hans': ['产品界面', '看看 ShareGather 如何帮你收集、整理，再回看每一个值得保留的片刻。', '← 返回首页'], en: ['Product screens', 'See how ShareGather helps you save, organize, and revisit every moment worth keeping.', '← Back home'] }
 function browserLanguage() { const saved = localStorage.getItem('sharegather-language'); if (saved && text[saved]) return saved; const all = navigator.languages?.length ? navigator.languages : [navigator.language]; if (all.some(l => /zh-(hant|tw|hk|mo)/i.test(l))) return 'zh-Hant'; if (all.some(l => /^zh/i.test(l))) return 'zh-Hans'; return 'en' }
