@@ -40,6 +40,7 @@ function App() {
         <button onClick={() => scrollTo('features')}>{t.navFeatures}</button>
         <button onClick={() => scrollTo('privacy')}>{t.navPrivacy}</button>
         <a href="screenshots.html">Screenshots</a>
+        <a href="https://github.com/edward-hsu-1994/ShareGather/issues" target="_blank" rel="noreferrer">{language === 'zh-Hant' ? '支援' : language === 'zh-Hans' ? '支持' : 'Support'} <span>↗</span></a>
         <a href="https://github.com/edward-hsu-1994/ShareGather" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
         <label className="language-picker">
           <span className="sr-only">Language</span>
