@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 
@@ -9,5 +9,20 @@ const policies = {
 }
 
 function language() { const all = navigator.languages?.length ? navigator.languages : [navigator.language]; if (all.some(l => /zh-(hant|tw|hk|mo)/i.test(l))) return 'zh-Hant'; if (all.some(l => /^zh/i.test(l))) return 'zh-Hans'; return 'en' }
-function Privacy() { const lang = language(); const p = policies[lang]; useEffect(() => { document.documentElement.lang = lang }, [lang]); return <main className="policy"><a className="brand" href="./"><img className="brand-mark" src="sharegather-icon.png" alt="" />ShareGather</a><a className="policy-back" href="./">{p.back}</a><p className="eyebrow">SHAREGATHER</p><h1>{p.title}</h1><p className="policy-updated">{p.updated}</p><p className="policy-intro">{p.intro}</p>{p.sections.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}<p className="policy-repo"><a href="https://github.com/edward-hsu-1994/ShareGather" target="_blank" rel="noreferrer">github.com/edward-hsu-1994/ShareGather ↗</a></p></main> }
+function Privacy() {
+  const [lang, setLang] = useState(() => {
+    const saved = localStorage.getItem('sharegather-language')
+    return saved && policies[saved] ? saved : language()
+  })
+  const p = policies[lang]
+  useEffect(() => {
+    document.documentElement.lang = lang
+    localStorage.setItem('sharegather-language', lang)
+  }, [lang])
+  return <main className="policy">
+    <a className="brand" href="./"><img className="brand-mark" src="sharegather-icon.png" alt="" />ShareGather</a>
+    <div className="policy-controls"><a className="policy-back" href="./">{p.back}</a><label className="language-picker"><span className="sr-only">Language</span><select value={lang} onChange={(event) => setLang(event.target.value)} aria-label="Language"><option value="zh-Hant">繁中</option><option value="zh-Hans">简中</option><option value="en">EN</option></select></label></div>
+    <p className="eyebrow">SHAREGATHER</p><h1>{p.title}</h1><p className="policy-updated">{p.updated}</p><p className="policy-intro">{p.intro}</p>{p.sections.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}<p className="policy-repo"><a href="https://github.com/edward-hsu-1994/ShareGather" target="_blank" rel="noreferrer">github.com/edward-hsu-1994/ShareGather ↗</a></p>
+  </main>
+}
 createRoot(document.getElementById('root')).render(<Privacy />)
