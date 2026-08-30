@@ -5,7 +5,8 @@ const TRADITIONAL_CHINESE = /zh-(hant|tw|hk|mo)/i
 const ANY_CHINESE = /^zh/i
 
 function detectBrowserLanguage() {
-  const languages = navigator.languages?.length ? navigator.languages : [navigator.language]
+  const languages = (navigator.languages?.length ? navigator.languages : [navigator.language])
+    .filter(Boolean)
   if (languages.some((language) => TRADITIONAL_CHINESE.test(language))) return 'zh-Hant'
   if (languages.some((language) => ANY_CHINESE.test(language))) return 'zh-Hans'
   return 'en'
@@ -17,7 +18,7 @@ function detectBrowserLanguage() {
 function useLanguage(catalog) {
   const [language, setLanguage] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
-    return saved && catalog[saved] ? saved : detectBrowserLanguage()
+    return saved && Object.hasOwn(catalog, saved) ? saved : detectBrowserLanguage()
   })
   useEffect(() => {
     document.documentElement.lang = language
