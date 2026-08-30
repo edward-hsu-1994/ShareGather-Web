@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import { LanguagePicker, useLanguage } from './i18n.jsx'
 import './styles.css'
 
 const policies = {
@@ -8,20 +8,12 @@ const policies = {
   en: { title:'Privacy Policy', back:'← Back to ShareGather', updated:'Last updated: July 24, 2026', intro:'ShareGather is designed to save the content you want to revisit later, locally on your iPhone. This policy explains how the app handles that content.', sections:[['Information ShareGather Stores','When you share through the iOS Share Sheet or the Save to ShareGather action, the app may store the URLs and text you choose to share; along with a URL’s title, description, source, and thumbnail when available. Categories, their order, pinned-item choices, and language preferences are also stored on your device. This information is used only to provide saving, organizing, previewing, and re-sharing features.'],['No Account, Tracking, or Cloud Service','ShareGather does not require an account or sign-in. It has no operated server or cloud storage service. The app contains no analytics, advertising, tracking, or data-broker integrations, and does not send your saved content to a ShareGather-controlled server.'],['URL Preview Requests','For a shared URL, ShareGather may use Apple’s Link Presentation framework to request preview metadata such as a title or thumbnail. This is optional: the original URL is saved even if preview loading fails. The linked website and its services may receive your network information and process the request under their own privacy policies.'],['Backup and Restore','When you export a backup through the system Share Sheet, the backup file may contain saved items, categories, and URL thumbnails. The app or service receiving the backup handles it under its own privacy policy. When importing, ShareGather reads the file you select and stores it locally on your device.'],['Your Choices and Data Deletion','You can delete individual items and categories, or use Clear All Saved Items to clear saved content. This removes stored item data and associated local URL thumbnails. Removing the app may also remove local data; export a backup first if you need to retain it.'],['Contact','For privacy questions or feedback, please open an issue in the ShareGather GitHub repository.']] },
 }
 
-function language() { const all = navigator.languages?.length ? navigator.languages : [navigator.language]; if (all.some(l => /zh-(hant|tw|hk|mo)/i.test(l))) return 'zh-Hant'; if (all.some(l => /^zh/i.test(l))) return 'zh-Hans'; return 'en' }
 function Privacy() {
-  const [lang, setLang] = useState(() => {
-    const saved = localStorage.getItem('sharegather-language')
-    return saved && policies[saved] ? saved : language()
-  })
+  const [lang, setLang] = useLanguage(policies)
   const p = policies[lang]
-  useEffect(() => {
-    document.documentElement.lang = lang
-    localStorage.setItem('sharegather-language', lang)
-  }, [lang])
   return <main className="policy">
     <a className="brand" href="./"><img className="brand-mark" src="sharegather-icon.png" alt="" />ShareGather</a>
-    <div className="policy-controls"><a className="policy-back" href="./">{p.back}</a><label className="language-picker"><span className="sr-only">Language</span><select value={lang} onChange={(event) => setLang(event.target.value)} aria-label="Language"><option value="zh-Hant">繁中</option><option value="zh-Hans">简中</option><option value="en">EN</option></select></label></div>
+    <div className="policy-controls"><a className="policy-back" href="./">{p.back}</a><LanguagePicker value={lang} onChange={(event) => setLang(event.target.value)} /></div>
     <p className="eyebrow">SHAREGATHER</p><h1>{p.title}</h1><p className="policy-updated">{p.updated}</p><p className="policy-intro">{p.intro}</p>{p.sections.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}<p className="policy-repo"><a href="https://github.com/edward-hsu-1994/ShareGather" target="_blank" rel="noreferrer">github.com/edward-hsu-1994/ShareGather ↗</a></p>
   </main>
 }
